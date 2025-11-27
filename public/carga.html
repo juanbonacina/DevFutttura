@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Subir Excel y enviar al backend</title>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(45deg, rgb(199, 0, 171), rgb(103, 0, 158), rgb(36, 29, 186));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .contenedor {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+    }
+
+    h2, h3 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #fafafa;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    pre {
+      background: #f3f3f3;
+      padding: 15px;
+      border-radius: 6px;
+      width: 100%;
+      max-height: 250px;
+      overflow-y: auto;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    #btnEnviar {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      width: 100%;
+    }
+
+    #btnEnviar:hover:not(:disabled) {
+      background-color: #0056b3;
+    }
+
+    #btnEnviar:disabled {
+      background-color: #999;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="contenedor">
+    <h2>Cargar Excel</h2>
+
+    <input type="file" id="inputExcel" accept=".xlsx, .xls" />
+
+    <h3>Vista previa (primeros 10 elementos):</h3>
+    <pre id="preview"></pre>
+
+    <button id="btnEnviar" disabled>Enviar al backend</button>
+  </div>
+
+</body>
+<script>
+    let datosExcel = []; // aquí se guarda el array original
+
+    document.getElementById('inputExcel').addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function (event) {
+        const data = new Uint8Array(event.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+
+        // Convertir a array de objetos
+        datosExcel = XLSX.utils.sheet_to_json(sheet, { defval: "" });
+
+        console.log("Datos cargados:", datosExcel);
+
+        // Mostrar solo los primeros 10
+        const preview = datosExcel.slice(0, 10);
+
+        document.getElementById('preview').textContent =
+          JSON.stringify(preview, null, 2);
+
+        // Habilitar botón
+        document.getElementById('btnEnviar').disabled = false;
+      };
+
+      reader.readAsArrayBuffer(file);
+    });
+
+
+    // Enviar al backend
+    document.getElementById('btnEnviar').addEventListener('click', function () {
+      fetch('/api/procesarExcel', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ datos: datosExcel })
+      })
+      .then(res => res.json())
+      .then(resp => {
+        console.log("Respuesta del backend:", resp);
+        alert("Datos enviados correctamente");
+      })
+      .catch(err => console.error("Error al enviar datos:", err));
+    });
+  </script>
+
+</html>
+
