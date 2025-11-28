@@ -59,35 +59,48 @@ async function codigoBuscado (tag, usuario){
        
         const resp = await response.json();
 
-        console.log(`la respuesta del back fue ${resp}`)
-        
-        // 3. Devolver el número recibido
-        // Se valida que la propiedad 'numero' exista y sea uno de los valores esperados.
+        console.log(`la respuesta del back fue ${resp.data.length}`)
 
-        if ( resp.numero === 1) {
-            // 🎉 Este es el valor que se devuelve a la función que llama.
-            resultadoDiv.innerHTML=`${resp.data.Respuesta}${resp.data.cbu}`;
-            resultadoDiv.classList.remove('error');
-            resultadoDiv.classList.remove('espera');
-            resultadoDiv.classList.add('exito');
-            //return resp.numero;
-
-
-        } else if(resp.numero === 0){
-            // Si el JSON no tiene el formato esperado
-            resultadoDiv.innerHTML=`${resp.data.Respuesta}`;
-        
-            resultadoDiv.classList.remove('error');
-            resultadoDiv.classList.remove('exito');
-            resultadoDiv.classList.add('espera');
-
-            //return -1; 
-        }else{
-            resultadoDiv.innerHTML=`Su reembolso resulto rechazado, porfavor contactece complete el siguiente link: https://forms.gle/6vEPJeQHoaevPQtZ7`;
-            resultadoDiv.classList.remove('espera');
-            resultadoDiv.classList.remove('exito');
-            resultadoDiv.classList.add('error');
+        if(resp.data.length > 1){
+            alert("usted tiene mas de una devolucion solicitada, las mismas se mostraran en orden a continuacion")
         }
+        
+        resp.data.forEach(item => {
+
+            let bloque = document.createElement("div");
+            bloque.classList.add("resultado-item"); // podés estilizarlo en CSS
+
+            console.log(`el devor del item es ${item.DevoR}`)
+
+            if (item.DevoR === 1) {
+                bloque.innerHTML = `
+                    <p><b>Status:</b> ${item.Respuesta}</p>
+                    <p>${item.cbu}</p>
+                `;
+                bloque.classList.add("exito");
+
+            } else if (item.DevoR === 0) {
+
+                bloque.innerHTML = `
+                    <p><b>Respuesta:</b> ${item.Respuesta}</p>
+                `;
+                bloque.classList.add("espera");
+
+            } else {
+
+                bloque.innerHTML = `
+                    <p>Su reembolso resultó rechazado.</p>
+                    <p>Complete el siguiente link:</p>
+                    <a href="https://forms.gle/6vEPJeQHoaevPQtZ7" target="_blank">
+                        Formulario de contacto
+                    </a>
+                `;
+                bloque.classList.add("error");
+            }
+
+            // Agregar el bloque al div principal
+            resultadoDiv.appendChild(bloque);
+        });
 
     } catch (error) {
         // Manejo de errores de red (servidor inalcanzable, etc.)

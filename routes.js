@@ -1,3 +1,4 @@
+import { Console } from "console";
 import { Router } from "express";
 import fs from 'fs';
 
@@ -15,43 +16,28 @@ router.get('/carga', (req, res)=>{
 router.post("/busquedaCodigo", buscarCodigoEnArray);
 
 function buscarCodigoEnArray(req, res) {
-    console.log(ids);
     let codigoValido;
     const { tag, usuario } = req.body;
-    console.log(`el tag es ${tag}  el usuario es${usuario}`)
     let resultado = 0;
 
     const tagNorm = req.body.tag.toLowerCase();
 
     if(!tag){
-        const codigoEncontrado = ids.find(item => item.User_ID == usuario);
+        const codigoEncontrado = ids.filter(item => item.User_ID == usuario);
         codigoValido=codigoEncontrado;
         console.log(`el codigo encontrado fue el usuario ${codigoValido}`)
     }else{
-        const codigoEncontrado = ids.find(item => item.Tag_ID == tagNorm);
+        const codigoEncontrado = ids.filter(item => item.Tag_ID == tagNorm);
         codigoValido = codigoEncontrado;
         console.log(`el codigo encontrado fue el tag ${codigoValido}`)
 
     }
 
-    
-    
-    console.log(`el codigo encontrado es ${codigoValido}`)
-
-    if (codigoValido) {
-        if (codigoValido.DevoR === 1){
-             resultado = 1;
-        }
-        else if (codigoValido.DevoR === -1) {
-            resultado = -1;
-        }
-    }
-
     return res.status(200).json({ 
-        numero: resultado,
         data: codigoValido 
     });
 }
+
 
 
 router.post('/api/procesarExcel', (req, res) => {
