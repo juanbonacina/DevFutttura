@@ -61,7 +61,42 @@ async function codigoBuscado (tag, usuario){
 
         console.log(`la respuesta del back fue ${resp.data.length}`)
 
-        if(resp.data.length > 1){
+
+         let bloque = document.createElement("div");
+            bloque.classList.add("resultado-item"); // podés estilizarlo en CSS
+
+            console.log(`el devor del item es ${resp.data.DevoR}`)
+
+            if (resp.data.DevoR === 1) {
+                bloque.innerHTML = `
+                    <p><b>Status:</b> ${resp.data.Respuesta}</p>
+                    <p>${resp.data.cbu}</p>
+                `;
+                bloque.classList.add("exito");
+
+            } else if (resp.data.DevoR === 0) {
+
+                bloque.innerHTML = `
+                    <p><b>Respuesta:</b> ${resp.data.Respuesta}</p>
+                `;
+                bloque.classList.add("espera");
+
+            } else {
+
+                bloque.innerHTML = `
+                    <p>Su reembolso resultó rechazado.</p>
+                    <p>Complete el siguiente link:</p>
+                    <a href="https://forms.gle/6vEPJeQHoaevPQtZ7" target="_blank">
+                        Formulario de contacto
+                    </a>
+                `;
+                bloque.classList.add("error");
+            }
+
+            // Agregar el bloque al div principal
+            resultadoDiv.appendChild(bloque);
+
+        /*if(resp.data.length > 1){
             alert("usted tiene mas de una devolucion solicitada, las mismas se mostraran en orden a continuacion")
         }
         
@@ -100,7 +135,7 @@ async function codigoBuscado (tag, usuario){
 
             // Agregar el bloque al div principal
             resultadoDiv.appendChild(bloque);
-        });
+        })*/
 
     } catch (error) {
         // Manejo de errores de red (servidor inalcanzable, etc.)

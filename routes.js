@@ -23,11 +23,11 @@ function buscarCodigoEnArray(req, res) {
     const tagNorm = req.body.tag.toLowerCase();
 
     if(!tag){
-        const codigoEncontrado = ids.filter(item => item.User_ID == usuario);
+        const codigoEncontrado = ids.find(item => item.User_ID == usuario);
         codigoValido=codigoEncontrado;
         console.log(`el codigo encontrado fue el usuario ${codigoValido}`)
     }else{
-        const codigoEncontrado = ids.filter(item => item.Tag_ID == tagNorm);
+        const codigoEncontrado = ids.find(item => item.Tag_ID == tagNorm);
         codigoValido = codigoEncontrado;
         console.log(`el codigo encontrado fue el tag ${codigoValido}`)
 
