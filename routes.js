@@ -9,9 +9,9 @@ router.get("/", (req, res)=>{
     res.sendFile("index.html", { root: "public" });
 })
 
-router.get('/carga', (req, res)=>{
+/*router.get('/carga', (req, res)=>{
     res.sendFile("carga.html", {root: "public"});
-})
+})*/
 
 router.post("/busquedaCodigo", buscarCodigoEnArray);
 
