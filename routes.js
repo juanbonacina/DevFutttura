@@ -20,8 +20,6 @@ function buscarCodigoEnArray(req, res) {
     const { tag, usuario } = req.body;
     let resultado = 0;
 
-    console.log(ids)
-
     console.log("TAG recibido:", req.body.tag);
     console.log("USUARIO recibido:", req.body.usuario);
 
@@ -29,17 +27,26 @@ function buscarCodigoEnArray(req, res) {
 
     console.log(`el tag norm es ${tagNorm}`)
 
+    let codigoEncontrado;
+
     if(!tag){
-        const codigoEncontrado = ids.find(item => item.User_ID == usuario);
-        codigoValido=codigoEncontrado;
+        codigoEncontrado = ids.find(item => item.User_ID == usuario);
         console.log(`el codigo encontrado fue el usuario ${codigoValido}`)
         console.log("Resultado encontrado:", codigoValido);
     }else{
-        const codigoEncontrado = ids.find(item => item.Tag_ID == tagNorm);
-        codigoValido = codigoEncontrado;
+        codigoEncontrado = ids.find(item => item.Tag_ID == tagNorm);
         console.log(`el codigo encontrado fue el tag ${codigoValido}`)
         console.log("Resultado encontrado:", codigoValido);
 
+    }
+
+    if (!codigoEncontrado) {
+        codigoValido = {
+            DevoR: -1
+        };
+        console.log("No se encontró el código. Devolviendo DevoR: -1");
+    } else {
+        codigoValido = codigoEncontrado;
     }
 
     return res.status(200).json({ 

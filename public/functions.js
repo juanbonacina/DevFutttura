@@ -79,14 +79,18 @@ async function codigoBuscado (tag, usuario){
                 bloque.classList.add("espera");
 
             } else {
-
+                
                 bloque.innerHTML = `
+                    <p>Su ID no fue encontrado en la base de datos</p>
+                    <p>Por favor verifique que este escrito correctamente</p>
+                `;
+                /*bloque.innerHTML = `
                     <p>Su reembolso resultó rechazado.</p>
                     <p>Complete el siguiente link:</p>
                     <a href="https://forms.gle/6vEPJeQHoaevPQtZ7" target="_blank">
                         Formulario de contacto
                     </a>
-                `;
+                `;*/
                 bloque.classList.add("error");
             }
 
