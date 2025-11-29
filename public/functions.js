@@ -59,8 +59,6 @@ async function codigoBuscado (tag, usuario){
        
         const resp = await response.json();
 
-        console.log(`la respuesta del back fue ${resp.data.length}`)
-
 
          let bloque = document.createElement("div");
             bloque.classList.add("resultado-item"); // podés estilizarlo en CSS
