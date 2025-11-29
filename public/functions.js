@@ -63,7 +63,7 @@ async function codigoBuscado (tag, usuario){
          let bloque = document.createElement("div");
             bloque.classList.add("resultado-item"); // podés estilizarlo en CSS
 
-            console.log(`el devor del item es ${resp.data.DevoR}`)
+            
 
             if (resp.data.DevoR === 1) {
                 bloque.innerHTML = `
