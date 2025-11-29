@@ -74,6 +74,7 @@ async function codigoBuscado (tag, usuario){
 
                 bloque.innerHTML = `
                     <p><b>Respuesta:</b> ${data.Respuesta}</p>
+                    <p>${data.cbu}</p>
                 `;
                 bloque.classList.add("espera");
 
