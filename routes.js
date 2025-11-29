@@ -33,6 +33,8 @@ function buscarCodigoEnArray(req, res) {
 
     }
 
+    console.log(`el tag es ${codigoValido.Tag_ID} el devor es ${codigoValido.DevoR}`)
+
     return res.status(200).json({ 
         data: codigoValido 
     });

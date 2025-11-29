@@ -58,24 +58,22 @@ async function codigoBuscado (tag, usuario){
         });
        
         const resp = await response.json();
-
+        const data = resp.data;
 
          let bloque = document.createElement("div");
             bloque.classList.add("resultado-item"); // podés estilizarlo en CSS
 
-            
-
-            if (resp.data.DevoR === 1) {
+            if (data.DevoR === 1) {
                 bloque.innerHTML = `
-                    <p><b>Status:</b> ${resp.data.Respuesta}</p>
-                    <p>${resp.data.cbu}</p>
+                    <p><b>Status:</b> ${data.Respuesta}</p>
+                    <p>${data.cbu}</p>
                 `;
                 bloque.classList.add("exito");
 
-            } else if (resp.data.DevoR === 0) {
+            } else if (data.DevoR === 0) {
 
                 bloque.innerHTML = `
-                    <p><b>Respuesta:</b> ${resp.data.Respuesta}</p>
+                    <p><b>Respuesta:</b> ${data.Respuesta}</p>
                 `;
                 bloque.classList.add("espera");
 
