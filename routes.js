@@ -6,7 +6,7 @@ const router = Router();
 const ids = JSON.parse(fs.readFileSync('./datosExcel.json', 'utf8'));//codigosDisponibles;
 
 router.get("/", (req, res)=>{
-    res.sendFile("mantenimiento.html", { root: "public" });
+    res.sendFile("index.html", { root: "public" });
 })
 
 /*router.get('/carga', (req, res)=>{
