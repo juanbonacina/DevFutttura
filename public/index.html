@@ -3,57 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mantenimiento</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
-           background: linear-gradient(45deg, rgb(199, 0, 171), rgb(103, 0, 158), rgb(36, 29, 186));
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #2c3e50;
-        }
-
-        .card {
-            text-align: center;
-            background: white;
-            padding: 40px 30px;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            max-width: 380px;
-            width: 90%;
-        }
-
-        .icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-            color: #f39c12;
-        }
-
-        h1 {
-            margin-bottom: 10px;
-            font-size: 22px;
-        }
-
-        p {
-            font-size: 16px;
-            color: #555;
-        }
-    </style>
-</head>
+    <title>Consulta de Devolución Futttura</title>
+    <link rel="stylesheet" href="style.css"> </head>
 <body>
 
-    <div class="card">
-        <div class="icon">⏳</div>
-        <h1>Actualizando datos</h1>
-        <p>
-            Se están actualizando los datos de la página.  
-            Por favor, inténtelo nuevamente en aproximadamente <b>2 horas</b>.
-        </p>
+    <div class="contenedor-consulta">
+        <h2>Estado de Devolución de Futttura</h2>
+        <p>Por favor, ingrese el código de su tarjeta para consultar el estado de su reembolso.</p>
+
+        <div class="grupo-input">
+            <label for="codigoTarjeta">Código de Tarjeta:</label>
+            <input type="text" class="codigos" id="codigoTarjeta" placeholder="Ej: 04A13ACA9F4380">
+        </div>
+
+        <p>------------------------------------O------------------------------------</p>
+        <!--<p>Si tuvo un problema con su tarjeta aca puede consultar el estado de su reembolso por su ID de Usuario</p>-->
+
+        <div class="grupo-input">
+            <label for="codigoTarjeta">O bien, ingresá aquí el ID de usuario de tu billetera:</label>
+            <input type="text" class="codigos" id="codigoUsuario" placeholder="Ej: 18c4a9f1b-15e8-47d3-b20f-61e7a5c89d2as">
+        </div>
+
+        <button id="botonConsultar">Consultar Estado</button>
+
+        <div id="resultado" class="mensaje-resultado">
+        </div>
     </div>
 
-</body>
+    <script src="functions.js"></script> </body>
 </html>

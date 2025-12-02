@@ -1,6 +1,12 @@
 import { Console } from "console";
 import { Router } from "express";
 import fs from 'fs';
+import multer from "multer";
+import XLSX from "xlsx";
+
+const upload = multer({
+  limits: { fileSize: 50 * 1024 * 1024 } // 50MB
+});
 
 const router = Router();
 const ids = JSON.parse(fs.readFileSync('./datosExcel.json', 'utf8'));//codigosDisponibles;
@@ -56,30 +62,37 @@ function buscarCodigoEnArray(req, res) {
 
 
 
-router.post('/api/procesarExcel', (req, res) => {
-    const datos = req.body.datos;
-
-    if (!datos || !Array.isArray(datos)) {
-        return res.status(400).json({ ok: false, error: "Datos inválidos" });
+router.post('/api/procesarExcel', upload.single('archivo'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ ok: false, error: "No se envió ningún archivo" });
     }
 
     try {
+        // Leer el Excel desde el buffer
+        const workbook = XLSX.read(req.file.buffer);
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+
+        // Convertir hoja a JSON (igual que antes)
+        const datos = XLSX.utils.sheet_to_json(sheet, { defval: "" });
+
         // Guardar archivo JSON
         fs.writeFileSync('./datosExcel.json', JSON.stringify(datos, null, 2));
 
         console.log(`📄 Archivo creado: datosExcel.json (${datos.length} registros)`);
 
-        return res.json({ 
-            ok: true, 
-            mensaje: "Datos guardados correctamente",
+        return res.json({
+            ok: true,
+            mensaje: "Datos procesados y guardados correctamente",
             registros: datos.length,
             archivo: "datosExcel.json"
         });
 
     } catch (error) {
-        console.error("❌ Error guardando JSON:", error);
-        return res.status(500).json({ ok: false, error: "Error guardando archivo JSON" });
+        console.error("❌ Error procesando el archivo Excel:", error);
+        return res.status(500).json({ ok: false, error: "Error procesando el Excel" });
     }
 });
+
 
 export default router;

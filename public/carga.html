@@ -74,7 +74,6 @@
     }
   </style>
 </head>
-
 <body>
 
   <div class="contenedor">
@@ -89,11 +88,15 @@
   </div>
 
 </body>
+
 <script>
     let datosExcel = []; // aquí se guarda el array original
+    let archivoOriginal = null; // 🔥 guardamos el archivo real
 
     document.getElementById('inputExcel').addEventListener('change', function (e) {
       const file = e.target.files[0];
+      archivoOriginal = file; // 🔥 lo guardamos para enviarlo luego
+
       const reader = new FileReader();
 
       reader.onload = function (event) {
@@ -103,18 +106,16 @@
         const sheetName = workbook.SheetNames[0];
         const sheet = workbook.Sheets[sheetName];
 
-        // Convertir a array de objetos
+        // Convertir a array de objetos SOLO para vista previa
         datosExcel = XLSX.utils.sheet_to_json(sheet, { defval: "" });
 
         console.log("Datos cargados:", datosExcel);
 
-        // Mostrar solo los primeros 10
         const preview = datosExcel.slice(0, 10);
 
         document.getElementById('preview').textContent =
           JSON.stringify(preview, null, 2);
 
-        // Habilitar botón
         document.getElementById('btnEnviar').disabled = false;
       };
 
@@ -122,23 +123,25 @@
     });
 
 
-    // Enviar al backend
+    // 🔥 NUEVO: Enviar el archivo original, NO el JSON gigante
     document.getElementById('btnEnviar').addEventListener('click', function () {
+
+      const formData = new FormData();
+      formData.append("archivo", archivoOriginal);
+
       fetch('/api/procesarExcel', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ datos: datosExcel })
+        body: formData
       })
       .then(res => res.json())
       .then(resp => {
         console.log("Respuesta del backend:", resp);
-        alert("Datos enviados correctamente");
+        alert("Archivo enviado correctamente");
       })
-      .catch(err => console.error("Error al enviar datos:", err));
+      .catch(err => console.error("Error al enviar archivo:", err));
     });
-  </script>
+
+</script>
 
 </html>
 

@@ -66,17 +66,19 @@ async function codigoBuscado (tag, usuario){
             if (data.DevoR === 1) {
                 bloque.innerHTML = `
                     <p><b>Status:</b> ${data.Respuesta}</p>
-                    <p>${data.cbu}</p>
+                    <p>${data.cbu}</p>                 
+                    <p>${data.Comprobante_MP ? `el numero de comprobante es:${data.Comprobante_MP}`: `` }
+                    <p>${data.Comprobante_Tag ? `el  numero de comprobante es:${data.Comprobante_Tag}`: `` }
+                    </p>
                 `;
                 bloque.classList.add("exito");
 
-            } else if (data.DevoR === 0) {
+            } else if (data.DevoR === -1) {
 
                 bloque.innerHTML = `
-                    <p><b>Respuesta:</b> ${data.Respuesta}</p>
-                    <p>${data.cbu}</p>
+                   <p>Te informamos que tu trasnferencia ha sido rechazada por la entidad bancaria debido a errores en la carga de datos. Te pedimos por favor que ingreses al siguiente <a href="https://forms.gle/6vEPJeQHoaevPQtZ7"> link</a> y completes los datos solicitados asegurándote que no haya errores de tipeo, que la cuenta bancaria esté activa y que coincidan los datos de titularidad con el CUIL ingresado. La nueva trasnferencia se procesará dentro de los próximos 20 días hábiles máximo.<p>
                 `;
-                bloque.classList.add("espera");
+                bloque.classList.add("error");
 
             } else {
                 

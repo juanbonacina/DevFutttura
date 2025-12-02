@@ -3,6 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import routes from "./routes.js";
 
+
 const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
