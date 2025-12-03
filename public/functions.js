@@ -83,8 +83,8 @@ async function codigoBuscado (tag, usuario){
             } else {
                 
                 bloque.innerHTML = `
-                    <p>Su ID no fue encontrado en la base de datos</p>
-                    <p>Por favor verifique que este escrito correctamente</p>
+                    <p>Te informamos que tu devolución aún se encuentra en proceso. Será enviada para su procesamiento en los próximos días. Podés volver a consultar nuevamente por aquí en cualquier momento para recibir actualizaciones.</p>
+                   
                 `;
                 /*bloque.innerHTML = `
                     <p>Su reembolso resultó rechazado.</p>
@@ -93,7 +93,7 @@ async function codigoBuscado (tag, usuario){
                         Formulario de contacto
                     </a>
                 `;*/
-                bloque.classList.add("error");
+                bloque.classList.add("espera");
             }
 
             // Agregar el bloque al div principal

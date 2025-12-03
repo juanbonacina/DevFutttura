@@ -48,7 +48,7 @@ function buscarCodigoEnArray(req, res) {
 
     if (!codigoEncontrado) {
         codigoValido = {
-            DevoR: -1
+            DevoR: 0
         };
         console.log("No se encontró el código. Devolviendo DevoR: -1");
     } else {
