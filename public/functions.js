@@ -80,7 +80,7 @@ async function codigoBuscado (tag, usuario){
                 `;
                 bloque.classList.add("error");
 
-            } else {
+            } else if(data.DevoR === 0){
                 
                 bloque.innerHTML = `
                     <p>Te informamos que tu devolución aún se encuentra en proceso. Será enviada para su procesamiento en los próximos días. Podés volver a consultar nuevamente por aquí en cualquier momento para recibir actualizaciones.</p>
@@ -93,6 +93,9 @@ async function codigoBuscado (tag, usuario){
                         Formulario de contacto
                     </a>
                 `;*/
+                bloque.classList.add("espera");
+            }else{
+                bloque.innerHTML = `<p>Tag no encontrado. Posibles causas:</p> <p>no fue solicitada la devolución en tiempo y forma, o bien aún no está siendo procesada por MercadoPago. Si ya solicitaste la devolución, volvé a consultar más adelante</p>`
                 bloque.classList.add("espera");
             }
 

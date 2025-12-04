@@ -15,9 +15,9 @@ router.get("/", (req, res)=>{
     res.sendFile("index.html", { root: "public" });
 })
 
-/*router.get('/carga', (req, res)=>{
+router.get('/carga', (req, res)=>{
     res.sendFile("carga.html", {root: "public"});
-})*/
+})
 
 router.post("/busquedaCodigo", buscarCodigoEnArray);
 
@@ -48,7 +48,7 @@ function buscarCodigoEnArray(req, res) {
 
     if (!codigoEncontrado) {
         codigoValido = {
-            DevoR: 0
+            DevoR: 2
         };
         console.log("No se encontró el código. Devolviendo DevoR: -1");
     } else {
