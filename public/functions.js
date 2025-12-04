@@ -83,7 +83,7 @@ async function codigoBuscado (tag, usuario){
             } else if(data.DevoR === 0){
                 
                 bloque.innerHTML = `
-                    <p>Te informamos que tu devolución aún se encuentra en proceso. Será enviada para su procesamiento en los próximos días. Podés volver a consultar nuevamente por aquí en cualquier momento para recibir actualizaciones.</p>
+                    <p>Te informamos que tu devolución ya fue enviada a MercadoPago para su procesamiento. Podés volver a consultar nuevamente por aquí en cualquier momento para recibir actualizaciones.</p>
                    
                 `;
                 /*bloque.innerHTML = `
