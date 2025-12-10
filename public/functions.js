@@ -83,7 +83,7 @@ async function codigoBuscado (tag, usuario){
             } else if(data.DevoR === 0){
                 
                 bloque.innerHTML = `
-                    <p><b>TRANSACCION EN PROCESO</b> - Las solicitudes gestionadas a partir del 17 de noviembre serán procesadas dentro de la semana del 8 al 14/11</p>
+                    <p><b>TRANSACCION EN PROCESO</b> - Las solicitudes gestionadas a partir del 17 de noviembre serán procesadas dentro de la semana del 8 al 14/12</p>
                    
                 `;
                 /*bloque.innerHTML = `
