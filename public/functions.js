@@ -83,7 +83,7 @@ async function codigoBuscado (tag, usuario){
             } else if(data.DevoR === 0){
                 
                 bloque.innerHTML = `
-                    <p>Te informamos que tu devolución ya fue enviada a MercadoPago para su procesamiento. Podés volver a consultar nuevamente por aquí en cualquier momento para recibir actualizaciones.</p>
+                    <p><b>TRANSACCION EN PROCESO</b> - Las solicitudes gestionadas a partir del 17 de noviembre serán procesadas dentro de la semana del 8 al 14/11</p>
                    
                 `;
                 /*bloque.innerHTML = `
